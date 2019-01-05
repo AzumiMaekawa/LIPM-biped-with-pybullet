@@ -20,11 +20,11 @@ p.configureDebugVisualizer(p.COV_ENABLE_GUI,0)
 
 distance = 1
 yaw = 45 
-pitch = -45
+pitch = -30
 p.resetDebugVisualizerCamera(distance,yaw,pitch, [0,0,0])
 
 planeId = p.loadURDF("plane.urdf")
-cubeStartPos = [0,0,0.5]
+cubeStartPos = [0,0,0.7]
 cubeStartOrientation = p.getQuaternionFromEuler([0,0,0])
 boxId = p.loadURDF("/urdf/lip_model01.urdf",cubeStartPos, cubeStartOrientation)
 #p.startStateLogging(p.STATE_LOGGING_VIDEO_MP4,'test.mp4')
@@ -45,7 +45,7 @@ for i in range(10000):
 #    img = img*(1./255.)
     cv.imwrite(image_path+"{}.png".format(i), img)
     time.sleep(1./240.)
-    if i == 500:
+    if i == 1000:
         break
     
 
