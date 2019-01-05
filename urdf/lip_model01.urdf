@@ -5,40 +5,118 @@
         <joint name="body_joint" type="planar">
             <parent link="base"/>
             <child  link="body"/>
+
+            <axis xyz="1 0 1"/>
         </joint>
         <link name="body">
             <inertial>
                 <origin xyz="0 0 0" rpy="0 0 0"/>
                 <mass value="0.5"/>
-                <inertia ixx="0.0005" ixy="0" ixz="0"
-                                iyy="0.0005" iyz="0"
-                                izz="0.0005"/>
+                <inertia ixx="0.0005" ixy="0" ixz="0" iyy="0.0005" iyz="0" izz="0.0005"/>
             </inertial>
             <visual>
-                <origin xyz = "0 0 0" rpy="0 0 0"/>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
                 <geometry>
                     <sphere radius="0.05"/>
-                </gometry>
+                </geometry>
                 <material name="red">
-                    <color rgba="1.0 0 0"/>
-                </mateiral>
+                    <color rgba="1.0 0 0 1"/>
+                </material>
             </visual>
             <collision>
-                <origin xzy="0 0 0" rpy="0 0 0"/>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
                 <geometry>
                     <sphere radius="0.05"/>
                 </geometry>
             </collision>
         </link>
 
-        <joint name="left_leg_joint" type"revolute">
+        <joint name="left_leg_joint" type="revolute">
+            <origin xyz="0 -0.05 0" rpy ="0 0 0"/>
             <parent link="body"/>
-            <child  link="left_leg"/>
+            <child  link="left_upperleg"/>
+            
+            <axis xyz="0 1 0"/>
+            <limit effort="30" velocity="1.0" lower="-2." upper="2."/>
         </joint>
 
-        <link name="left_leg">
+        <link name="left_upperleg">
             <inertial>
-                <origin xyz="0 0 0" rpy
+                <origin xyz="0 0 -0.1" rpy="0 0 0"/>
+                <mass value="1e-5"/>
+                <inertia ixx="1e-5" ixy="0" ixz="0" iyy="1e-5" iyz="0" izz="1e-5"/>
+            </inertial>
             <visual>
+                <origin xyz="0 0 -0.1" rpy="0 0 0"/>
                 <geometry>
-                    <
+                    <cylinder radius="0.01" length="0.2"/>
+                </geometry>
+                <material name="Cyan">
+                    <color rgba="0 1 1 1"/>
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="0 0 -0.1" rpy="0 0 0"/>
+                <geometry>
+                    <cylinder radius="0.01" length="0.2"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="left_knee" type="prismatic">
+            <origin xyz="0 0 -0.1" rpy="0 0 0"/>
+            <parent link="left_upperleg"/>
+            <child  link="left_lowerleg"/>
+
+            <axis xyz="0 0 1"/>
+            <limit effort="30" veloity="1.0" lower="-0.5" upper="0.5"/>
+        </joint>
+
+        <link name="left_lowerleg">
+            <inertial>
+                <origin xyz="0 0 -0.1" rpy="0 0 0"/>
+                <mass value="1e-5"/>
+                <inertia ixx="1e-5" ixy="0" ixz="0" iyy="1e-5" iyz="0" izz="ie-5"/>
+            </inertial>
+            <visual>
+                <origin xyz="0 0 -0.1" rpy="0 0 0"/>
+                <geometry>
+                    <cylinder radius="0.01" length="0.2"/>
+                </geometry>
+                <material name="Cyan">
+                    <color rgba="0 1 1 1"/>
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="0 0 -0.1" rpy="0 0 0"/>
+                <geometry>
+                    <cylinder radius="0.01" length="0.2"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="ankle" type="fixed">
+            <origin xyz="0 0 -0.1" rpy="0 0 0"/>
+            <parent link="left_lowerleg"/>
+            <child  link="left_foot"/>
+        </joint>
+
+        <link name="left_foot">
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <sphere radius="0.01"/>
+                </geometry>
+                <material name="Cyan">
+                    <color rgba="0 1 1 1"/>
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="0 0 -0.1" rpy="0 0 0"/>
+                <geometry>
+                    <sphere radius="0.01"/>
+                </geometry>
+            </collision>
+        </link>
+    </robot>
+
