@@ -1,1 +1,2 @@
-# linear-inverted-pendulum-biped-with-pybullet
+# LIPM biped with pybullet
+Linear Inverted Pendulum Model biped with pybullet
