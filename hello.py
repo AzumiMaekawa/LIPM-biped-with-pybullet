@@ -1,4 +1,5 @@
 # pybullet first test file
+# render frame check (main camera position, render frame video)
 
 import pybullet as p
 import time
