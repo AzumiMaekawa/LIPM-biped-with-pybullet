@@ -6,7 +6,6 @@ def sphere_inertia():
     m ,r = [float(param) for param in input().split()]
     print("ixx={0} ixy={1} ixz={1}\niyy={0} iyz={1}\nizz={0}"\
             .format(2*m*r*r/5, 0))
-    return
 
 def cylinder_inertia():
     print('input: mass radius height')
