@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
     <robot name="lip01">
         <link name="base"/>
-    
+        <!-- planar joint may cause a sudden jumping away motion...?--> 
         <joint name="body_joint" type="planar">
             <parent link="base"/>
             <child  link="body"/>
@@ -37,14 +37,14 @@
             <child  link="left_upperleg"/>
             
             <axis xyz="0 1 0"/>
-            <limit effort="30" velocity="1.0" lower="-2." upper="2."/>
+            <limit effort="10" velocity="1.0" lower="-2." upper="2."/>
         </joint>
 
         <link name="left_upperleg">
             <inertial>
                 <origin xyz="0 0 -0.1" rpy="0 0 0"/>
-                <mass value="1e-5"/>
-                <inertia ixx="1e-5" ixy="0" ixz="0" iyy="1e-5" iyz="0" izz="1e-5"/>
+                <mass value="0.1"/>
+                <inertia ixx="3e-4" ixy="0" ixz="0" iyy="3e-4" iyz="0" izz="5e-6"/>
             </inertial>
             <visual>
                 <origin xyz="0 0 -0.1" rpy="0 0 0"/>
@@ -69,14 +69,14 @@
             <child  link="left_lowerleg"/>
 
             <axis xyz="0 0 1"/>
-            <limit effort="30" veloity="1.0" lower="-0.5" upper="0.5"/>
+            <limit effort="10" veloity="1.0" lower="-0.5" upper="0.5"/>
         </joint>
 
         <link name="left_lowerleg">
             <inertial>
                 <origin xyz="0 0 -0.1" rpy="0 0 0"/>
-                <mass value="1e-5"/>
-                <inertia ixx="1e-5" ixy="0" ixz="0" iyy="1e-5" iyz="0" izz="ie-5"/>
+                <mass value="0.1"/>
+                <inertia ixx="3e-4" ixy="0" ixz="0" iyy="3e-4" iyz="0" izz="5e-6"/>
             </inertial>
             <visual>
                 <origin xyz="0 0 -0.1" rpy="0 0 0"/>
@@ -102,6 +102,11 @@
         </joint>
 
         <link name="left_foot">
+            <inertial>
+                <origin xyz="0 0 -0.1" rpy="0 0 0"/>
+                <mass value="0.01"/>
+                <inertia ixx="4e-7" ixy="0" ixz="0" iyy="4e-7" iyz="0" izz="4e-7"/>
+            </inertial>
             <visual>
                 <origin xyz="0 0 0" rpy="0 0 0"/>
                 <geometry>
