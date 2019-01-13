@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
     <robot name="lip01">
         <link name="base"/>
-        <!-- planar joint may cause a sudden jumping away motion...?--> 
-        <joint name="body_joint" type="planar">
+        <!-- planar joint may cause a sudden jumping away motion & unnatural motion...?--> 
+        <joint name="body_joint" type="floating">
             <parent link="base"/>
             <child  link="body"/>
 
@@ -30,7 +30,8 @@
                 </geometry>
             </collision>
         </link>
-
+        
+        <!-- left leg module -->
         <joint name="left_leg_joint" type="revolute">
             <origin xyz="0 -0.05 0" rpy ="0 0 0"/>
             <parent link="body"/>
@@ -95,7 +96,7 @@
             </collision>
         </link>
 
-        <joint name="ankle" type="fixed">
+        <joint name="left_ankle" type="fixed">
             <origin xyz="0 0 -0.1" rpy="0 0 0"/>
             <parent link="left_lowerleg"/>
             <child  link="left_foot"/>
@@ -115,6 +116,101 @@
                 <material name="Cyan">
                     <color rgba="0 1 1 1"/>
                 </material>
+            </visual> 
+            <collision>
+                <origin xyz="0 0 -0.1" rpy="0 0 0"/>
+                <geometry>
+                    <sphere radius="0.01"/>
+                </geometry>
+            </collision> 
+        </link>
+
+        <!-- left leg module end-->
+        <!-- right leg module-->
+        <joint name="right_leg_joint" type="revolute">
+            <origin xyz="0 0.05 0" rpy ="0 0 0"/>
+            <parent link="body"/>
+            <child  link="right_upperleg"/>
+            
+            <axis xyz="0 1 0"/>
+            <limit effort="10" velocity="1.0" lower="-2." upper="2."/>
+        </joint>
+
+        <link name="right_upperleg">
+            <inertial>
+                <origin xyz="0 0 -0.1" rpy="0 0 0"/>
+                <mass value="0.1"/>
+                <inertia ixx="3e-4" ixy="0" ixz="0" iyy="3e-4" iyz="0" izz="5e-6"/>
+            </inertial>
+            <visual>
+                <origin xyz="0 0 -0.1" rpy="0 0 0"/>
+                <geometry>
+                    <cylinder radius="0.01" length="0.2"/>
+                </geometry>
+                <material name="red">
+                    <color rgba="1 0 0 1"/>
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="0 0 -0.1" rpy="0 0 0"/>
+                <geometry>
+                    <cylinder radius="0.01" length="0.2"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="right_knee" type="prismatic">
+            <origin xyz="0 0 -0.1" rpy="0 0 0"/>
+            <parent link="right_upperleg"/>
+            <child  link="right_lowerleg"/>
+
+            <axis xyz="0 0 1"/>
+            <limit effort="10" veloity="1.0" lower="-0.5" upper="0.5"/>
+        </joint>
+
+        <link name="right_lowerleg">
+            <inertial>
+                <origin xyz="0 0 -0.1" rpy="0 0 0"/>
+                <mass value="0.1"/>
+                <inertia ixx="3e-4" ixy="0" ixz="0" iyy="3e-4" iyz="0" izz="5e-6"/>
+            </inertial>
+            <visual>
+                <origin xyz="0 0 -0.1" rpy="0 0 0"/>
+                <geometry>
+                    <cylinder radius="0.01" length="0.2"/>
+                </geometry>
+                <material name="red">
+                    <color rgba="1 0 0 1"/>
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="0 0 -0.1" rpy="0 0 0"/>
+                <geometry>
+                    <cylinder radius="0.01" length="0.2"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="right_ankle" type="fixed">
+            <origin xyz="0 0 -0.1" rpy="0 0 0"/>
+            <parent link="right_lowerleg"/>
+            <child  link="right_foot"/>
+        </joint>
+
+        <link name="right_foot">
+            <inertial>
+                <origin xyz="0 0 -0.1" rpy="0 0 0"/>
+                <mass value="0.01"/>
+                <inertia ixx="4e-7" ixy="0" ixz="0" iyy="4e-7" iyz="0" izz="4e-7"/>
+            </inertial>
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <sphere radius="0.01"/>
+                </geometry>
+                <material name="red">
+                    <color rgba="1 0 0 1"/>
+                </material>
             </visual>
             <collision>
                 <origin xyz="0 0 -0.1" rpy="0 0 0"/>
@@ -122,6 +218,6 @@
                     <sphere radius="0.01"/>
                 </geometry>
             </collision>
-        </link>
+        </link> 
     </robot>
 
