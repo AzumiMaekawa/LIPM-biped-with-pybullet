@@ -1,12 +1,20 @@
 <?xml version="1.0"?>
     <robot name="lip01">
         <link name="base"/>
+            <!-- <inertial> -->
+                <!-- <origin xyz="0 0 0" rpy="0 0 0"/> -->
+                <!-- <mass value="0.0001"/> -->
+                <!-- <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/> -->
+            <!-- </inertial> -->
+        <!-- </link> -->
+        
         <!-- planar joint may cause a sudden jumping away motion & unnatural motion...?--> 
-        <joint name="body_joint" type="floating">
+        <joint name="body_joint" type="fixed">
             <parent link="base"/>
             <child  link="body"/>
-
-            <axis xyz="1 0 1"/>
+            <!-- 
+            <axis xyz="0 1 0"/>
+            -->
         </joint>
         <link name="body">
             <inertial>
@@ -32,16 +40,16 @@
         </link>
         
         <!-- left leg module -->
-        <joint name="left_leg_joint" type="revolute">
+        <joint name="leftHip_joint" type="revolute">
             <origin xyz="0 -0.05 0" rpy ="0 0 0"/>
             <parent link="body"/>
-            <child  link="left_upperleg"/>
+            <child  link="leftUpperLeg"/>
             
             <axis xyz="0 1 0"/>
             <limit effort="10" velocity="1.0" lower="-2." upper="2."/>
         </joint>
 
-        <link name="left_upperleg">
+        <link name="leftUpperLeg">
             <inertial>
                 <origin xyz="0 0 -0.1" rpy="0 0 0"/>
                 <mass value="0.1"/>
@@ -64,16 +72,16 @@
             </collision>
         </link>
 
-        <joint name="left_knee" type="prismatic">
-            <origin xyz="0 0 -0.1" rpy="0 0 0"/>
-            <parent link="left_upperleg"/>
-            <child  link="left_lowerleg"/>
+        <joint name="leftKnee_joint" type="revolute">
+            <origin xyz="0 0 -0.2" rpy="0 0 0"/>
+            <parent link="leftUpperLeg"/>
+            <child  link="leftLowerLeg"/>
 
-            <axis xyz="0 0 1"/>
-            <limit effort="10" veloity="1.0" lower="-0.5" upper="0.5"/>
+            <axis xyz="0 1 0"/>
+            <limit effort="10" velocity="1.0" lower="-2" upper="2"/>
         </joint>
 
-        <link name="left_lowerleg">
+        <link name="leftLowerLeg">
             <inertial>
                 <origin xyz="0 0 -0.1" rpy="0 0 0"/>
                 <mass value="0.1"/>
@@ -84,8 +92,8 @@
                 <geometry>
                     <cylinder radius="0.01" length="0.2"/>
                 </geometry>
-                <material name="Cyan">
-                    <color rgba="0 1 1 1"/>
+                <material name="Green">
+                    <color rgba="0 1 0 1"/>
                 </material>
             </visual>
             <collision>
@@ -96,15 +104,15 @@
             </collision>
         </link>
 
-        <joint name="left_ankle" type="fixed">
-            <origin xyz="0 0 -0.1" rpy="0 0 0"/>
-            <parent link="left_lowerleg"/>
-            <child  link="left_foot"/>
+        <joint name="leftAnkle_joint" type="fixed">
+            <origin xyz="0 0 -0.2" rpy="0 0 0"/>
+            <parent link="leftLowerLeg"/>
+            <child  link="leftFoot"/>
         </joint>
 
-        <link name="left_foot">
+        <link name="leftFoot">
             <inertial>
-                <origin xyz="0 0 -0.1" rpy="0 0 0"/>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
                 <mass value="0.01"/>
                 <inertia ixx="4e-7" ixy="0" ixz="0" iyy="4e-7" iyz="0" izz="4e-7"/>
             </inertial>
@@ -113,12 +121,12 @@
                 <geometry>
                     <sphere radius="0.01"/>
                 </geometry>
-                <material name="Cyan">
-                    <color rgba="0 1 1 1"/>
+                <material name="White">
+                    <color rgba="1 1 1 1"/>
                 </material>
             </visual> 
             <collision>
-                <origin xyz="0 0 -0.1" rpy="0 0 0"/>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
                 <geometry>
                     <sphere radius="0.01"/>
                 </geometry>
@@ -127,16 +135,16 @@
 
         <!-- left leg module end-->
         <!-- right leg module-->
-        <joint name="right_leg_joint" type="revolute">
+        <joint name="rightHip_joint" type="revolute">
             <origin xyz="0 0.05 0" rpy ="0 0 0"/>
             <parent link="body"/>
-            <child  link="right_upperleg"/>
+            <child  link="rightUpperLeg"/>
             
             <axis xyz="0 1 0"/>
             <limit effort="10" velocity="1.0" lower="-2." upper="2."/>
         </joint>
 
-        <link name="right_upperleg">
+        <link name="rightUpperLeg">
             <inertial>
                 <origin xyz="0 0 -0.1" rpy="0 0 0"/>
                 <mass value="0.1"/>
@@ -159,16 +167,16 @@
             </collision>
         </link>
 
-        <joint name="right_knee" type="prismatic">
-            <origin xyz="0 0 -0.1" rpy="0 0 0"/>
-            <parent link="right_upperleg"/>
-            <child  link="right_lowerleg"/>
+        <joint name="rightKnee_joint" type="revolute">
+            <origin xyz="0 0 -0.2" rpy="0 0 0"/>
+            <parent link="rightUpperLeg"/>
+            <child  link="rightLowerLeg"/>
 
-            <axis xyz="0 0 1"/>
-            <limit effort="10" veloity="1.0" lower="-0.5" upper="0.5"/>
+            <axis xyz="0 1 0"/>
+            <limit effort="10" velocity="1.0" lower="-2." upper="2."/>
         </joint>
 
-        <link name="right_lowerleg">
+        <link name="rightLowerLeg">
             <inertial>
                 <origin xyz="0 0 -0.1" rpy="0 0 0"/>
                 <mass value="0.1"/>
@@ -191,16 +199,16 @@
             </collision>
         </link>
 
-        <joint name="right_ankle" type="fixed">
-            <origin xyz="0 0 -0.1" rpy="0 0 0"/>
-            <parent link="right_lowerleg"/>
-            <child  link="right_foot"/>
+        <joint name="rightAnkle" type="fixed">
+            <origin xyz="0 0 -0.2" rpy="0 0 0"/>
+            <parent link="rightLowerLeg"/>
+            <child  link="rightFoot"/>
         </joint>
 
-        <link name="right_foot">
+        <link name="rightFoot">
             <inertial>
-                <origin xyz="0 0 -0.1" rpy="0 0 0"/>
-                <mass value="0.01"/>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <mass value="0.03"/>
                 <inertia ixx="4e-7" ixy="0" ixz="0" iyy="4e-7" iyz="0" izz="4e-7"/>
             </inertial>
             <visual>
@@ -213,7 +221,7 @@
                 </material>
             </visual>
             <collision>
-                <origin xyz="0 0 -0.1" rpy="0 0 0"/>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
                 <geometry>
                     <sphere radius="0.01"/>
                 </geometry>
