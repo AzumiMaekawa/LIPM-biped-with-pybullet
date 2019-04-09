@@ -46,7 +46,7 @@
             <child  link="leftUpperLeg"/>
             
             <axis xyz="0 1 0"/>
-            <limit effort="10" velocity="1.0" lower="-2." upper="2."/>
+            <limit effort="10." velocity="1.0" lower="-2." upper="2."/>
         </joint>
 
         <link name="leftUpperLeg">
@@ -78,7 +78,7 @@
             <child  link="leftLowerLeg"/>
 
             <axis xyz="0 1 0"/>
-            <limit effort="10" velocity="1.0" lower="-2" upper="2"/>
+            <limit effort="10." velocity="1.0" lower="-2." upper="2."/>
         </joint>
 
         <link name="leftLowerLeg">
@@ -104,12 +104,12 @@
             </collision>
         </link>
 
-
-<!--> -->
-        <joint name="leftAnkle_joint" type="fixed">
+        <joint name="leftAnkle_joint" type="revolute">
             <origin xyz="0 0 -0.2" rpy="0 0 0"/>
             <parent link="leftLowerLeg"/>
             <child  link="leftFoot"/>
+            <axis xyz="0 1 0"/>
+            <limit effort="1." velocity="10." lower="-2." upper="2"/>
         </joint>
 
         <link name="leftFoot">
@@ -121,7 +121,7 @@
             <visual>
                 <origin xyz="0 0 0" rpy="0 0 0"/>
                 <geometry>
-                    <sphere radius="0.01"/>
+                    <box size="0.02 0.1 0.01"/>
                 </geometry>
                 <material name="White">
                     <color rgba="1 1 1 1"/>
@@ -130,7 +130,7 @@
             <collision>
                 <origin xyz="0 0 0" rpy="0 0 0"/>
                 <geometry>
-                    <sphere radius="0.01"/>
+                    <box size="0.02 0.1 0.01"/>
                 </geometry>
             </collision> 
         </link>
@@ -143,7 +143,7 @@
             <child  link="rightUpperLeg"/>
             
             <axis xyz="0 1 0"/>
-            <limit effort="10" velocity="1.0" lower="-2." upper="2."/>
+            <limit effort="10." velocity="1.0" lower="-2." upper="2."/>
         </joint>
 
         <link name="rightUpperLeg">
@@ -175,7 +175,7 @@
             <child  link="rightLowerLeg"/>
 
             <axis xyz="0 1 0"/>
-            <limit effort="10" velocity="1.0" lower="-2." upper="2."/>
+            <limit effort="10." velocity="1.0" lower="-2." upper="2."/>
         </joint>
 
         <link name="rightLowerLeg">
@@ -189,8 +189,8 @@
                 <geometry>
                     <cylinder radius="0.01" length="0.2"/>
                 </geometry>
-                <material name="red">
-                    <color rgba="1 0 0 1"/>
+                <material name="Orange">
+                    <color rgba="1 0.65 0 1"/>
                 </material>
             </visual>
             <collision>
@@ -201,10 +201,12 @@
             </collision>
         </link>
 
-        <joint name="rightAnkle" type="fixed">
+        <joint name="rightAnkle" type="revolute">
             <origin xyz="0 0 -0.2" rpy="0 0 0"/>
             <parent link="rightLowerLeg"/>
             <child  link="rightFoot"/>
+            <axis xyz="0 1 0"/>
+            <limit effort="1." velocity="10." lower="-2." upper="2."/>
         </joint>
 
         <link name="rightFoot">
@@ -216,16 +218,16 @@
             <visual>
                 <origin xyz="0 0 0" rpy="0 0 0"/>
                 <geometry>
-                    <sphere radius="0.01"/>
+                    <box size="0.02 0.1 0.01"/>
                 </geometry>
-                <material name="red">
-                    <color rgba="1 0 0 1"/>
+                <material name="Black">
+                    <color rgba="0 0 0 1"/>
                 </material>
             </visual>
             <collision>
                 <origin xyz="0 0 0" rpy="0 0 0"/>
                 <geometry>
-                    <sphere radius="0.01"/>
+                    <box size="0.02 0.1 0.01"/>
                 </geometry>
             </collision>
         </link> 
