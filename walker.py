@@ -25,9 +25,9 @@ p.resetDebugVisualizerCamera(distance,yaw,pitch, [0,0,0])
 planeId = p.loadURDF("plane.urdf")
 
 # intial setting of the agent
-cubeStartPos = [0,0,0.7]
-cubeStartOrientation = p.getQuaternionFromEuler([0,0,0])
-boxId = p.loadURDF("/urdf/lip_model01.urdf",cubeStartPos, cubeStartOrientation)
+startPos = [0,0,0.7]
+startOrientation = p.getQuaternionFromEuler([0,0,0])
+walkerId = p.loadURDF("/urdf/lip_model01.urdf", startPos, startOrientation)
 #boxId = p.loadURDF("/urdf/leg.urdf",cubeStartPos, cubeStartOrientation)
 
 p.setRealTimeSimulation(False)
@@ -37,6 +37,6 @@ for i in range(5000):
     time.sleep(1./240.)
     
 
-cubePos, cubeOrn = p.getBasePositionAndOrientation(boxId)
-print(cubePos,cubeOrn)
+pos, orn = p.getBasePositionAndOrientation(walkerId)
+print(pos,orn)
 p.disconnect()
