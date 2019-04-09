@@ -104,6 +104,8 @@
             </collision>
         </link>
 
+
+<!--> -->
         <joint name="leftAnkle_joint" type="fixed">
             <origin xyz="0 0 -0.2" rpy="0 0 0"/>
             <parent link="leftLowerLeg"/>
