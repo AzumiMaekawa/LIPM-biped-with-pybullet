@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
     <robot name="lip01">
-        <link name="base"/>
+        <link name="world"/>
             <!-- <inertial> -->
                 <!-- <origin xyz="0 0 0" rpy="0 0 0"/> -->
                 <!-- <mass value="0.0001"/> -->
@@ -10,7 +10,7 @@
         
         <!-- planar joint may cause a sudden jumping away motion & unnatural motion...?--> 
         <joint name="body_joint" type="fixed">
-            <parent link="base"/>
+            <parent link="world"/>
             <child  link="body"/>
             <!-- 
             <axis xyz="0 1 0"/>
