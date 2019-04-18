@@ -36,6 +36,12 @@ class BipedalPlanner(object):
 
         return x, x_dot, y, y_dot
 
+    def both_leg_period(self, x, x_dot, x_2dot, y, y_dot, y_2dot, T_dbl):
+        time_split = 100
+
+        for i in range(time_split):
+            delta_time = T_dbl
+
     def walk(self, T_sup=0.8, z_c=0.8, a=10, b=1, plot=False):
         if self.ref_footsteps is None:
             print("No footsteps")

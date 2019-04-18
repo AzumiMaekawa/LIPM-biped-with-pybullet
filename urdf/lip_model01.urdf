@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
     <robot name="lip01">
-        <link name="world"/>
+        <link name="base"/>
             <!-- <inertial> -->
                 <!-- <origin xyz="0 0 0" rpy="0 0 0"/> -->
                 <!-- <mass value="0.0001"/> -->
@@ -10,7 +10,7 @@
         
         <!-- planar joint may cause a sudden jumping away motion & unnatural motion...?--> 
         <joint name="body_joint" type="fixed">
-            <parent link="world"/>
+            <parent link="base"/>
             <child  link="body"/>
             <!-- 
             <axis xyz="0 1 0"/>
@@ -130,7 +130,7 @@
             <collision>
                 <origin xyz="0 0 0" rpy="0 0 0"/>
                 <geometry>
-                    <box size="0.02 0.1 0.01"/>
+                    <box size="0.04 0.1 0.01"/>
                 </geometry>
             </collision> 
         </link>
@@ -142,7 +142,7 @@
             <parent link="body"/>
             <child  link="rightUpperLeg"/>
             
-            <axis xyz="0 1 0"/>
+            <axis xyz="0 -1 0"/>
             <limit effort="10." velocity="1.0" lower="-2." upper="2."/>
         </joint>
 
@@ -174,7 +174,7 @@
             <parent link="rightUpperLeg"/>
             <child  link="rightLowerLeg"/>
 
-            <axis xyz="0 1 0"/>
+            <axis xyz="0 -1 0"/>
             <limit effort="10." velocity="1.0" lower="-2." upper="2."/>
         </joint>
 
@@ -201,11 +201,11 @@
             </collision>
         </link>
 
-        <joint name="rightAnkle" type="revolute">
+        <joint name="rightAnkle_joint" type="revolute">
             <origin xyz="0 0 -0.2" rpy="0 0 0"/>
             <parent link="rightLowerLeg"/>
             <child  link="rightFoot"/>
-            <axis xyz="0 1 0"/>
+            <axis xyz="0 -1 0"/>
             <limit effort="1." velocity="10." lower="-2." upper="2."/>
         </joint>
 
@@ -227,7 +227,7 @@
             <collision>
                 <origin xyz="0 0 0" rpy="0 0 0"/>
                 <geometry>
-                    <box size="0.02 0.1 0.01"/>
+                    <box size="0.04 0.1 0.01"/>
                 </geometry>
             </collision>
         </link> 
