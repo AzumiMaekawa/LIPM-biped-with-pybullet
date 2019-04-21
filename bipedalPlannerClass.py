@@ -2,6 +2,7 @@ import pybullet as p
 import pybullet_data
 import time
 import math
+import numpy as np
 
 PI = math.pi
 
@@ -95,6 +96,44 @@ class BipedalPlanner(object):
         self.setMotorAngleByName('rightHip_joint', self.motorDir[3]*hipAngle)
         self.setMotorAngleByName('rightKnee_joint', self.motorDir[4]*kneeAngle)
 
+    def getBasePosition(self):
+        position, orientation = p.getBasePositionAndOrientation(self.ID)
+        return position
+
+    def getBaseOrientation(self):
+        position, orientation = p.getBasePositionAndOrientation(self.ID)
+        return orientation
+
+    def applyAction(self, motorCommands):
+        motorCommandsWithDir = np.multiply(motorCommands, self.motorDir)
+        for i in range(self.nMotors):
+            self.setMotorAngleById(
+                self.motorIdList[i], motorCommandsWithDir[i])
+
+    def getMotorAngles(self):
+        motorAngles = []
+        for i in range(self.nMotors):
+            jointState = p.getJointState(self.ID, self.motorIdList[i])
+            motorAngles.append(jointState[0])
+        motorAngles = np.multiply(motorAngles, self.motorDir)
+        return motorAngles
+
+    def getMotorVelocities(self):
+        motorVelocities = []
+        for i in range(self.nMotors):
+            jointState = p.getjointState(self.ID, self.motorIdList[i])
+            motorVelocities.append(jointState[1])
+        motorVelocities = np.multiply(motorVelocities, self.motorDir)
+        return motorVelocities
+
+    def getMotorTorques(self):
+        motorTorques = []
+        for i in range(self.nMotors):
+            jointState = p.getJointState(self.ID, self.motorIdList[i])
+            motorTorques.append(jointState[3])
+        motorTorques = np.multiply(motorTorques, self.motorDir)
+        return motorTorques
+
     def setRefFootsteps(self, ref_footsteps):
         self.ref_footsteps = ref_footsteps
 
@@ -104,7 +143,7 @@ class BipedalPlanner(object):
             return
 
 
-class pybulletSettings():
+class PybulletSettings():
     def __init__(self):
         self.pysicsClient = p.connect(p.GUI)
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
@@ -113,7 +152,6 @@ class pybulletSettings():
 
         self.planeId = p.loadURDF("plane.urdf")
         p.setRealTimeSimulation(False)
-        p.setGravity(0, 0, -9.8)
         self.cameraConfig()
 
     # camera positioin setting
@@ -122,11 +160,13 @@ class pybulletSettings():
 
 
 if __name__ == "__main__":
-    pybullet_settings = pybulletSettings()
+    pybullet_settings = PybulletSettings()
     walker = BipedalPlanner("/urdf/lip_model01.urdf")
 
     for i in range(1000):
         p.stepSimulation()
         time.sleep(1./240.)
+        if i == 300:
+            walker.setMotorAngleByName('leftHip_joint', 1.)
 
     p.disconnect()
